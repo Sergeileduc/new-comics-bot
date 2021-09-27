@@ -3,8 +3,6 @@
 
 """League of comics API."""
 import datetime
-import tkinter as tk
-import tkinter.scrolledtext as scrolledtext
 from urllib.parse import urljoin
 
 import requests
