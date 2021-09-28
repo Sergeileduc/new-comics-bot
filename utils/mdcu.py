@@ -21,14 +21,16 @@ def fetch_mdcu():
     dates = soup.select("h4.m-t-20.m-b-5")
 
     res = ""
-        
+
     for d in dates:
         res += d.text + "\n"
         res += "###################################\n"
-        issues = d.next_sibling.next_sibling.select("h3")  # only issues have a "a" tag, others h3 tags, like dates, don't.
+        issues = d.next_sibling.next_sibling.select("div.p-x-5.m-t-10.text-center > span > h3")  # noqa: E501
         for i in issues:
             if i.a:
-                res += (f"[url={i.a.get('href')}]{i.text}[/url]\n")
+                res += f"[url={i.a.get('href')}]{i.text}[/url]\n"
+            else:
+                res += f"{i.text}\n"
         res += "\n"
 
     return res
