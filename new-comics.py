@@ -35,15 +35,12 @@ forum_list += "[size=150]Indie COMICS[/size]\n"
 forum_list += Indie_list
 forum_list += "\n\n"
 
-# print(forum_list)
 
 phpbb = PhpBB(HOST)
 
 if phpbb.login(USERNAME, PASSWORD):
-    # print("Login")
     today = date.today()
     subject = today.strftime('Semaine du %d/%m/%Y')
-    # print(subject)
     desc = ""
     
     phpbb.post_topic(139, subject, desc, forum_list)
