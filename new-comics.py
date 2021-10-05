@@ -40,7 +40,7 @@ phpbb = PhpBB(HOST)
 
 if phpbb.login(USERNAME, PASSWORD):
     today = date.today()
-    subject = today.strftime('Semaine du %d/%m/%Y')
+    subject = today.strftime('Semaine du %d/%m/%Y (VO)')
     desc = ""
     
     phpbb.post_topic(139, subject, desc, forum_list)
