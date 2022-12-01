@@ -109,6 +109,7 @@ def print_issue(issue):
     print('\t' + issue["url"])
     print()
 
+
 def generate_forum_list(publisher=None):
     issues = fetch_issues(publisher=publisher, week=True)
     issues.sort(key=lambda item: item.get("title"))

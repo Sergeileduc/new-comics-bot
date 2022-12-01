@@ -3,15 +3,31 @@
 
 """MDCU."""
 import datetime
-from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
 
 
+def fetch_issue(url):
+    try:
+        resp = requests.get(url)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        title = soup.select_one("div.widget-item > h4")
+        return title.text
+    except Exception:
+        return None
+
+
+def issue2string(issue):
+    if issue.a:
+        title = fetch_issue(issue.a.get('href'))
+        return f"[url={issue.a.get('href')}]{title}[/url]\n" if title else f"[url={issue.a.get('href')}]{issue.text}[/url]\n"  # noqa: E501
+    else:
+        return f"{issue.text}\n"
+
 
 def fetch_mdcu():
-    url = "https://www.mdcu-comics.fr/includes/calendrier/inc_calendrier_vf.php"
+    url = "https://www.mdcu-comics.fr/includes/calendrier/inc_calendrier_vf.php"  # noqa: E501
     dt = datetime.datetime.today()
     params = {'m': dt.month,
               'y': dt.year,
@@ -27,10 +43,7 @@ def fetch_mdcu():
         res += "###################################\n"
         issues = d.next_sibling.next_sibling.select("div.p-x-5.m-t-10.text-center > span > h3")  # noqa: E501
         for i in issues:
-            if i.a:
-                res += f"[url={i.a.get('href')}]{i.text}[/url]\n"
-            else:
-                res += f"{i.text}\n"
+            res += issue2string(i)
         res += "\n"
 
     return res

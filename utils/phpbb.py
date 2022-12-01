@@ -129,7 +129,7 @@ class PhpBB(object):
         """Send a new topic."""
         url = urljoin(self.host, self.new_topic_url.format(f=forum))
 
-        urlsend, payload = self._make_new_topic_payload(url, subject, desc, message)
+        urlsend, payload = self._make_new_topic_payload(url, subject, desc, message)  # noqa: E501
         # print(urlrep)
         # print(payload)
         time.sleep(2)

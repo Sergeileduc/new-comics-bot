@@ -28,8 +28,8 @@ if phpbb.login(USERNAME, PASSWORD):
     today = date.today()
     subject = today.strftime(f'Sorties du mois {today.month}/{today.year} (VF)')
     desc = ""
-    
+
     phpbb.post_topic(7, subject, desc, content)
-    
+
     phpbb.logout()
     phpbb.close()
