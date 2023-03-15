@@ -5,7 +5,7 @@ from urllib.parse import parse_qs, urlparse
 
 
 # Parse url and get fields
-def get_query_field(url, field):
+def get_query_field(url: str, field):
     """Parse url and returns value for key (field)."""
     try:
         return parse_qs(urlparse(url).query)[field]

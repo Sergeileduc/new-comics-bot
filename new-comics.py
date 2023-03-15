@@ -2,6 +2,7 @@
 # -*-coding:utf-8 -*-
 """Docstring."""
 
+
 import logging
 import os
 from datetime import date
@@ -24,8 +25,7 @@ DC_list = generate_forum_list(publisher="DC")
 Marvel_list = generate_forum_list(publisher="Marvel")
 Indie_list = generate_forum_list(publisher="Indie")
 
-forum_list = ""
-forum_list += "[size=150]DC COMICS[/size]\n"
+forum_list = "" + "[size=150]DC COMICS[/size]\n"
 forum_list += DC_list
 forum_list += "\n\n"
 forum_list += "[size=150]Marvel COMICS[/size]\n"

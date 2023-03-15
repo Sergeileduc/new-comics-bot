@@ -17,7 +17,7 @@ class Browser:
         except HTTPError as e:
             raise e
 
-    def get_html(self, url):
+    def get_html(self, url: str) -> BeautifulSoup:
         """Return HTML soup with Beautiful Soup.
 
         Args:
@@ -38,7 +38,7 @@ class Browser:
             print("HTTP Error")
             print(e)
 
-    def get_form(self, url, form_id):
+    def get_form(self, url: str, form_id):
         """Return form found in url as a dict."""
         try:
             form = self.get_html(url).find("form", id=form_id)
@@ -51,21 +51,19 @@ class Browser:
     def _get_form_values(soup):
         try:
             inputs = soup.find_all("input")
-            values = {}
-            for input in inputs:
-                if (
-                    input.get("type") == "submit"
-                    or not input.get("name")
-                    or not input.get("value")
-                ):
-                    continue
-                values[input["name"]] = input["value"]
+            values = {
+                inp["name"]: inp["value"]
+                for inp in inputs
+                if inp.get("type") != "submit"
+                and inp.get("name")
+                and inp.get("value")
+            }
             return {"values": values, "action": soup["action"]}
         except AttributeError as e:
-            print("Attribute Error : " + str(e))
+            print(f"Attribute Error : {str(e)}")
             return
         except KeyError as e:
-            print("Key Error code : " + str(e))
+            print(f"Key Error code : {str(e)}")
             return
 
     def select_tag(self, url, tag):
@@ -80,4 +78,4 @@ class Browser:
 
     def list_cookies(self):
         """List session cookies."""
-        return [cookie for cookie in self.session.cookies]
+        return list(self.session.cookies)
