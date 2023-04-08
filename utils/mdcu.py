@@ -39,7 +39,7 @@ def fetch_mdcu():
 
     for d in dates:
         res += d.text + "\n"
-        res += "###################################\n"
+        res += "--------------------------------------\n"
         issues = d.next_sibling.next_sibling.select("div.p-x-5.m-t-10.text-center > span > h3")  # noqa: E501
         for i in issues:
             res += issue2string(i)
