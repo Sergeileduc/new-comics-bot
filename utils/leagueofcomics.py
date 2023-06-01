@@ -115,10 +115,9 @@ def generate_forum_list(publisher=None):
     issues.sort(key=lambda item: item.get("title"))
     issues.sort(key=lambda item: item.get("publisher"))
 
-    res = "".join(
+    return "".join(
         f"{i.get('publisher'):30} -> [url={i.get('url')}]{i.get('title')}[/url]\n"  # noqa : E501
         if publisher == "Indie"
         else f"[url={i.get('url')}]{i.get('title')}[/url]\n"
         for i in issues
     )
-    return res

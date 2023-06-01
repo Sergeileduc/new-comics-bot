@@ -31,9 +31,7 @@ class Browser:
         # headers['User-Agent'] = self.user_agent
         try:
             r = self.session.get(url)
-            soup = BeautifulSoup(r.text, "html.parser")
-            # print(soup)
-            return soup
+            return BeautifulSoup(r.text, "html.parser")
         except HTTPError as e:
             print("HTTP Error")
             print(e)
@@ -61,10 +59,8 @@ class Browser:
             return {"values": values, "action": soup["action"]}
         except AttributeError as e:
             print(f"Attribute Error : {str(e)}")
-            return
         except KeyError as e:
             print(f"Key Error code : {str(e)}")
-            return
 
     def select_tag(self, url, tag):
         """Select tag in soup and return dict (name:value)."""

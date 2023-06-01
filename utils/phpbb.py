@@ -70,11 +70,15 @@ class PhpBB(object):
                 return int(cookie.value)
 
     def _get_sid(self) -> str:
+        """Return sid
+
+        Returns:
+            str: sid
+        """
         cookies = self.browser.list_cookies()
         for cookie in cookies:
             if re.search(COOKIE_SID_PATTERN, cookie.name):
-                sid = cookie.value
-                return sid
+                return cookie.value
 
     def login(self, username: str, password: str) -> bool:
         """Log in phpBB forum."""
