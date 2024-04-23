@@ -21,18 +21,18 @@ HOST = os.getenv("HOST")
 USERNAME = os.getenv("NAME")
 PASSWORD = os.getenv("PASSWORD")
 
-DC_list = generate_forum_list(publisher="DC")
-Marvel_list = generate_forum_list(publisher="Marvel")
-Indie_list = generate_forum_list(publisher="Indie")
+dc_list = generate_forum_list(publisher="DC")
+marvel_list = generate_forum_list(publisher="Marvel")
+indie_list = generate_forum_list(publisher="Indie")
 
 forum_list = "" + "[size=150]DC COMICS[/size]\n"
-forum_list += DC_list
+forum_list += dc_list
 forum_list += "\n\n"
 forum_list += "[size=150]Marvel COMICS[/size]\n"
-forum_list += Marvel_list
+forum_list += marvel_list
 forum_list += "\n\n"
 forum_list += "[size=150]Indie COMICS[/size]\n"
-forum_list += Indie_list
+forum_list += indie_list
 forum_list += "\n\n"
 
 

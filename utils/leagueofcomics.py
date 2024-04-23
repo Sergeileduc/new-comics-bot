@@ -12,6 +12,12 @@ from bs4 import BeautifulSoup
 # publisher 2 is Marvel
 # indie comics are all comics, excluding 1 and 2 (the Big Two)
 
+LOC_URL = "https://leagueofcomicgeeks.com"
+API_URL = "https://leagueofcomicgeeks.com/comic/get_comics"
+headers = {
+    'User-Agent': 'Mozilla/5.0',
+}
+
 
 def fetch_issues(publisher=None,
                  week=False,
@@ -37,8 +43,6 @@ def fetch_issues(publisher=None,
         issues = fetch_issues(publisher="DC", week=True, firsts_only=True)
         issues = fetch_issues(publisher="Marvel", firsts_only=True, m=2, y=2020)
     """  # noqa: E501
-    loc_url = "https://leagueofcomicgeeks.com"
-    api_url = "https://leagueofcomicgeeks.com/comic/get_comics"
 
     params = {"addons": 1,
               "list": "releases",
@@ -80,7 +84,7 @@ def fetch_issues(publisher=None,
         params["list_refinement"] = "firsts"
 
     # fetch league of comics
-    resp = requests.get(api_url, params=params)
+    resp = requests.get(API_URL, params=params, headers=headers, timeout=60)
     # Parse response
     json_ = resp.json()['list']
     soup = BeautifulSoup(json_, "html.parser")
@@ -96,7 +100,7 @@ def fetch_issues(publisher=None,
     comics = [{"title": r.select_one('div.title.color-primary > a').text,
                "publisher": r.select_one('div.comic-details > span.publisher').text,  # noqa: E501
                "cover": r.find("div", class_="comic-cover-art").img['data-src'],  # noqa: E501
-               "url": urljoin(loc_url, r.select_one("div.title > a")["href"])}  # noqa: E501
+               "url": urljoin(LOC_URL, r.select_one("div.title > a")["href"])}  # noqa: E501
               for r in raw_list]
 
     return comics
@@ -111,6 +115,7 @@ def print_issue(issue):
 
 
 def generate_forum_list(publisher=None):
+    """Generate text to be sent to the forum."""
     issues = fetch_issues(publisher=publisher, week=True)
     issues.sort(key=lambda item: item.get("title"))
     issues.sort(key=lambda item: item.get("publisher"))
