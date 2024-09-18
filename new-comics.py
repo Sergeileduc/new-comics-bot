@@ -41,9 +41,9 @@ phpbb = PhpBB(HOST)
 if phpbb.login(USERNAME, PASSWORD):
     today = date.today()
     subject = today.strftime('Semaine du %d/%m/%Y (VO)')
-    desc = ""
+    DESC = ""
 
-    phpbb.post_topic(139, subject, desc, forum_list)
+    phpbb.post_topic(139, subject, DESC, forum_list)
 
     phpbb.logout()
     phpbb.close()
