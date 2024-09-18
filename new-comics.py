@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*-coding:utf-8 -*-
-"""Docstring."""
+"""Post league of comics list of issues on phpBB Forum."""
 
 
 import logging
